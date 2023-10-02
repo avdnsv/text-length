@@ -1,0 +1,88 @@
+<div class="frame">
+  <h1 class="header">Number of characters: <span id="num">0</span></h1>
+  <div class="wrapper">
+    <button class="button reset">Reset</button>
+    <button class="button count">Count</button>
+  </div>
+</div>
+
+<script>
+  const count = document.querySelector("#num");
+
+  onmessage = (event) => {
+    count.innerHTML = event.data.pluginMessage;
+  };
+
+  document.querySelector(".count").onclick = () => {
+    parent.postMessage({ pluginMessage: "msg" }, "*");
+  };
+
+  document.querySelector(".reset").onclick = () => {
+    count.innerHTML = 0;
+  };
+</script>
+
+<style>
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  :root {
+    --c-white: white;
+    --c-black: rgb(25, 25, 25);
+    --c-grey: rgb(245, 245, 245);
+    --c-light-blue: rgb(69, 151, 247);
+    --c-dark-blue: rgb(53, 121, 222);
+  }
+
+  .frame * {
+    font: 500 smaller Arial, Helvetica, sans-serif;
+    color: var(--c-black);
+  }
+
+  .frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    height: 100%;
+  }
+
+  .wrapper {
+    display: flex;
+    gap: 16px;
+  }
+
+  .button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--c-white);
+  }
+
+  .button:focus {
+    outline: 1px solid var(--c-dark-blue);
+  }
+
+  .reset {
+    border: 1px solid var(--c-black);
+  }
+
+  .reset:focus {
+    background-color: var(--c-grey);
+  }
+
+  .count {
+    background-color: var(--c-light-blue);
+    color: var(--c-white);
+  }
+
+  .count:focus {
+    background-color: var(--c-dark-blue);
+  }
+</style>
